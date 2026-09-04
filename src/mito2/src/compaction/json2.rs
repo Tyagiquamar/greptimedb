@@ -247,6 +247,8 @@ fn select_dynamic_hints(
         .iter()
         .filter(|(path, stat)| {
             !stat.is_type_conflicted
+                // TODO(LFC): Instead of "primitive only", consider retaining stable compound types
+                // that are safe to write to Parquet, as flush does,
                 && stat.data_type.is_primitive()
                 && !has_ancestor_path(path)
                 && !has_descendant_path(path)
